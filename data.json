@@ -1,0 +1,905 @@
+{
+    "collection": {
+        "info": {
+            "_postman_id": "91ff207c-741b-4e8b-822c-7c34129fe8c0",
+            "name": "GItHubAPI",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "updatedAt": "2023-06-24T10:13:20.000Z",
+            "uid": "27092734-91ff207c-741b-4e8b-822c-7c34129fe8c0"
+        },
+        "item": [
+            {
+                "name": "CREATE A REPOSITORY FOR A AUTHENTICATED USER",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "8883513a-086a-402f-aaa9-9e76341e7341",
+                            "exec": [
+                                "pm.test(\"Status code is 201\", function () {\r",
+                                "    pm.response.to.have.status(201);\r",
+                                "});\r",
+                                "// console.log(pm.response);\r",
+                                "\r",
+                                "const responseJson = pm.response.json();\r",
+                                "const owner_name=responseJson.owner.login;\r",
+                                "console.log(owner_name);\r",
+                                "\r",
+                                "pm.environment.set(\"owner_name\", owner_name);\r",
+                                "const repo_name=responseJson.name;\r",
+                                "console.log(repo_name);\r",
+                                "\r",
+                                "pm.environment.set(\"repo_name\", repo_name);"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "0b6725b1-47e5-4b46-bae7-00f6a7d5b6fd",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"name\":\"gitAPIproject-tetsing-repo11\"\r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/user/repos",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "user",
+                            "repos"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-0b6725b1-47e5-4b46-bae7-00f6a7d5b6fd"
+            },
+            {
+                "name": "UPDATE A REPOSITORY",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "558d91f0-6277-4f94-81a2-08ee78ac0c8f",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "97d01a6c-66e6-4af1-bd40-450cecf6fe24",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"name\" : \"update-tesing-api0\",  \r\n    \"description\" : \"learning the update for repo\"\r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-97d01a6c-66e6-4af1-bd40-450cecf6fe24"
+            },
+            {
+                "name": "GET A REPOSITORY",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "ed9453ca-91cd-47a9-907f-be1571f43e80",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "1968169f-74b9-4fa1-b623-e04c8a31debf",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-1968169f-74b9-4fa1-b623-e04c8a31debf"
+            },
+            {
+                "name": ".CREATE OR UPDATE FILE CONTENT",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "a6b0f8cc-2145-41f3-87fa-a215e9c011f8",
+                            "exec": [
+                                "pm.test(\"Status code is 201\", function () {\r",
+                                "    pm.response.to.have.status(201);\r",
+                                "});\r",
+                                "\r",
+                                "const responseJson = pm.response.json();\r",
+                                "const sha=responseJson.content.sha;\r",
+                                "console.log(sha);\r",
+                                "pm.environment.set(\"sha\", sha);"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "67faa452-d3d8-44c9-af65-44d2d7c9a5d0",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"message\": \"Create new file\",\r\n    \"content\": \"aGlpIHN0b3JtIGJyaW5nZXJzISEhIGJ1cmdlciBiYWQgbSBraGlsYXRhIGh1\"\r\n}\r\n",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/contents/{{pathG}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "contents",
+                            "{{pathG}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-67faa452-d3d8-44c9-af65-44d2d7c9a5d0"
+            },
+            {
+                "name": "CREATE A FORK",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "2427f4b2-cda5-4c4b-8a1c-b8ca11b6e52c",
+                            "exec": [
+                                "pm.test(\"Status code is 202\", function () {\r",
+                                "    pm.response.to.have.status(202);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "49f6e84b-7482-4299-ab02-94e4ba171990",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"organization\": \"{{org}}\"\r\n}\r\n",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/forks",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "forks"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-49f6e84b-7482-4299-ab02-94e4ba171990"
+            },
+            {
+                "name": "LIST FORKS",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "f20773e0-bf80-4215-9693-a8e957da1e82",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "80a22940-4238-4f42-b41d-819f91689055",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/forks",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "forks"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-80a22940-4238-4f42-b41d-819f91689055"
+            },
+            {
+                "name": "LIST REPOSITORIES FOR A USER",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "9689effb-e2b8-4275-a2a0-8c09d975ad13",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "3439cc75-13bb-4e5e-bd9f-5251d8040af1",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/users/{{owner_name}}/repos",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "users",
+                            "{{owner_name}}",
+                            "repos"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-3439cc75-13bb-4e5e-bd9f-5251d8040af1"
+            },
+            {
+                "name": "LIST REPOSITORY LANGUAGE",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "ba39a9b8-cd7c-44cf-ac5b-3e704a43981d",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "ede82bee-0f8d-4240-96a3-a2b048ef91d7",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/languages",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "languages"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-ede82bee-0f8d-4240-96a3-a2b048ef91d7"
+            },
+            {
+                "name": "LIST PUBLIC REPOSITORIES",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "3b1325ad-39fc-40f0-bcf7-81b7a9717096",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "2b090a0b-8a6f-4eaa-b66a-23e5ecdd6d52",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repositories",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repositories"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-2b090a0b-8a6f-4eaa-b66a-23e5ecdd6d52"
+            },
+            {
+                "name": "LIST REPOSITORY TAGS",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "baf5be1b-6b06-422e-90cc-aa08a30964fe",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "ac09286d-23a0-40cd-9d9a-7b55fa49b46b",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/tags",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "tags"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-ac09286d-23a0-40cd-9d9a-7b55fa49b46b"
+            },
+            {
+                "name": "GET ALL REPOSITORY TOPICS",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "604e8f0b-8298-4a33-a257-4549788d8d97",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "876f97c5-f8b2-4ac5-b297-61024eea25f3",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/topics",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "topics"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-876f97c5-f8b2-4ac5-b297-61024eea25f3"
+            },
+            {
+                "name": "REPLACE ALL REPOSITORY TOPICS",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "4a6413bb-fafd-4956-895c-96d28f6c50c3",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "336c7827-03b1-46dd-9769-3b9cbdd743b0",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n  \"names\": [\r\n    \"topic1\",\r\n    \"topic2\",\r\n    \"topic3\"\r\n  ]\r\n}\r\n",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/topics",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "topics"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-336c7827-03b1-46dd-9769-3b9cbdd743b0"
+            },
+            {
+                "name": "Create an autolink reference",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "db66641d-59dd-4864-9a58-7f0867e513f5",
+                            "exec": [
+                                "pm.test(\"Status code is 201\", function () {\r",
+                                "    pm.response.to.have.status(201);\r",
+                                "});\r",
+                                "\r",
+                                "const responseJson = pm.response.json();\r",
+                                "const autolink_id=responseJson.id;\r",
+                                "console.log(autolink_id);\r",
+                                "pm.environment.set(\"autolink_id\", autolink_id);"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "4479692f-b092-44fe-a51a-b1f22fc8b88a",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"key_prefix\":\"TICKET\",\r\n    \"url_template\":\"https://example.com/TICKET?query=<num>\"\r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/autolinks",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "autolinks"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-4479692f-b092-44fe-a51a-b1f22fc8b88a"
+            },
+            {
+                "name": "get an autolink reference",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "0655d990-0a84-4e83-89aa-173eb4394832",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "06bcd654-f2a3-4a15-b254-fb0de4bcc39a",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/autolinks/{{autolink_id}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "autolinks",
+                            "{{autolink_id}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-06bcd654-f2a3-4a15-b254-fb0de4bcc39a"
+            },
+            {
+                "name": "DELETE A FILE",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "27843867-35ef-4106-a751-66dd8a01d9a3",
+                            "exec": [
+                                "pm.test(\"Status code is 200\", function () {\r",
+                                "    pm.response.to.have.status(200);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "6a678ea0-d506-4bf1-b1f8-4fa9c7e75b5c",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"message\": \"Create new file\",\r\n    \"sha\": \"{{sha}}\"\r\n}\r\n",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/contents/{{pathG}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "contents",
+                            "{{pathG}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-6a678ea0-d506-4bf1-b1f8-4fa9c7e75b5c"
+            },
+            {
+                "name": "delete autolink reference",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "30d8ff87-dc06-46fa-88e0-8ac28ef5cd09",
+                            "exec": [
+                                "pm.test(\"Status code is 204\", function () {\r",
+                                "    pm.response.to.have.status(204);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "188acf65-42c8-4304-8b1d-da3c644231f8",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}/autolinks/{{autolink_id}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}",
+                            "autolinks",
+                            "{{autolink_id}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-188acf65-42c8-4304-8b1d-da3c644231f8"
+            },
+            {
+                "name": "DELETE A REPOSITORY",
+                "event": [
+                    {
+                        "listen": "test",
+                        "script": {
+                            "id": "3d5ab854-9e94-420d-80bd-2584aaef62be",
+                            "exec": [
+                                "pm.test(\"Status code is 204\", function () {\r",
+                                "    pm.response.to.have.status(204);\r",
+                                "});"
+                            ],
+                            "type": "text/javascript"
+                        }
+                    }
+                ],
+                "id": "744a6f6a-f479-497c-b8cc-a7fd0046e359",
+                "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                },
+                "request": {
+                    "auth": {
+                        "type": "bearer",
+                        "bearer": [
+                            {
+                                "key": "token",
+                                "value": "{{token}}",
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "{{baseurl}}/repos/{{owner_name}}/{{repo_name}}",
+                        "host": [
+                            "{{baseurl}}"
+                        ],
+                        "path": [
+                            "repos",
+                            "{{owner_name}}",
+                            "{{repo_name}}"
+                        ]
+                    }
+                },
+                "response": [],
+                "uid": "27092734-744a6f6a-f479-497c-b8cc-a7fd0046e359"
+            }
+        ]
+    }
+}
